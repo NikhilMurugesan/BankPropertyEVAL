@@ -1,0 +1,90 @@
+<div class="borrower-container">
+    <h2>Main Borrower</h2>
+    <form id="mainBorrowerForm">
+      <label for="customerNumber">Customer Number:</label>
+      <input type="text" id="customerNumber" name="customerNumber" [(ngModel)]="mainBorrower.customerNumber" required>
+      
+      <label for="customerName">Customer Name:</label>
+      <input type="text" id="customerName" name="customerName" [(ngModel)]="mainBorrower.customerName" required>
+      
+      <label for="contactNumber">Contact Number:</label>
+      <input type="tel" id="contactNumber" name="contactNumber" [(ngModel)]="mainBorrower.contactNumber" required>
+      
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" [(ngModel)]="mainBorrower.email" required>
+      
+      <label for="address">Address:</label>
+      <textarea id="address" name="address" [(ngModel)]="mainBorrower.address" required></textarea>
+    </form>
+    <button type="button" class="add-button" (click)="addJointBorrower()">Add Joint Borrower</button>
+  </div>
+  
+  <div *ngIf="jointBorrowers.length > 0" class="borrower-container">
+    <h2>Joint Borrowers</h2>
+    <div *ngFor="let jointBorrower of jointBorrowers; let i = index" class="joint-borrower">
+      <form id="jointBorrowerForm{{i}}">
+        <label for="jointCustomerNumber{{i}}">Customer Number:</label>
+        <input type="text" id="jointCustomerNumber{{i}}" name="jointCustomerNumber{{i}}" [(ngModel)]="jointBorrower.customerNumber" required>
+        
+        <label for="jointCustomerName{{i}}">Customer Name:</label>
+        <input type="text" id="jointCustomerName{{i}}" name="jointCustomerName{{i}}" [(ngModel)]="jointBorrower.customerName" required>
+        
+        <label for="jointContactNumber{{i}}">Contact Number:</label>
+        <input type="tel" id="jointContactNumber{{i}}" name="jointContactNumber{{i}}" [(ngModel)]="jointBorrower.contactNumber" required>
+        
+        <label for="jointEmail{{i}}">Email:</label>
+        <input type="email" id="jointEmail{{i}}" name="jointEmail{{i}}" [(ngModel)]="jointBorrower.email" required>
+        
+        <label for="jointAddress{{i}}">Address:</label>
+        <textarea id="jointAddress{{i}}" name="jointAddress{{i}}" [(ngModel)]="jointBorrower.address" required></textarea>
+      </form>
+      <button type="button" class="delete-button" (click)="removeJointBorrower(i)">Delete</button>
+    </div>
+    <button type="button" class="add-button" (click)="addJointBorrower()">Add Joint Borrower</button>
+  </div>
+  
+  <div class="borrower-container">
+    <h2>Comments</h2>
+    <textarea class="comment-input" [(ngModel)]="newComment" placeholder="Add a comment"></textarea>
+    <button type="button" class="add-button" (click)="addComment()">Add Comment</button>
+    <table class="comment-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>User</th>
+          <th>Comment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let comment of comments.slice().reverse()">
+          <td>{{ comment.date }}</td>
+          <td>{{ comment.user }}</td>
+          <td>{{ comment.comment }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="borrower-container">
+    <h2>Upload Section</h2>
+    <label for="fileInput">Select Document:</label>
+    <input type="file" id="fileInput" class="file-input">
+    <select [(ngModel)]="uploadType" class="document-type">
+      <option value="Title Deed">Title Deed</option>
+      <option value="National Identity Card">National Identity Card</option>
+      <option value="Building Permits">Building Permits</option>
+      <option value="Birth Certificate">Birth Certificate</option>
+      <option value="Marriage Certificate">Marriage Certificate</option>
+      <option value="Quotation">Quotation</option>
+      <option value="Letter of Intent">Letter of Intent</option>
+    </select>
+    <button type="button" class="upload-button" (click)="uploadDocument()">Upload</button>
+  </div>
+  
+  <div class="borrower-container">
+    <h2>Uploaded Documents</h2>
+    <ul class="document-list">
+      <li *ngFor="let document of uploadedDocuments">{{ document }}</li>
+    </ul>
+  </div>
+  
