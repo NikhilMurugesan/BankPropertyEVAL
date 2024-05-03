@@ -12,7 +12,9 @@ public class PropertyValuation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @SuppressWarnings("unused")
     private String fosReference; // Format: YYYY/MM/XXXX
+    @SuppressWarnings("unused")
     private String typeOfEvaluation; // New or Existing
 
     // Constructors, getters, setters, and other methods
