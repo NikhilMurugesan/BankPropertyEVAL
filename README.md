@@ -10,5 +10,8 @@
 
 ![image](https://github.com/NikhilMurugesan/BankPropertyEVAL/assets/49281792/16168858-d7f3-4555-ae79-1890835fa801)
 
+![image](https://github.com/NikhilMurugesan/BankPropertyEVAL/assets/49281792/de289ff8-cf34-422a-aedf-cdf66cf71b59)
+
+
 
 
