@@ -6,6 +6,7 @@ import { PropertyValuationComponent } from './property-valuation/property-valuat
 import { BorrowerComponent } from './borrower/borrower.component';
 import { NewPropertyComponent } from './new-property/new-property.component';
 import { ExistingPropertyComponent } from './existing-property/existing-property.component';
+import { CommentComponent } from './comment/comment.component';
 //import { CommentComponent } from './comment/comment.component';
 
 const routes: Routes = [/*  {
@@ -29,7 +30,7 @@ const routes: Routes = [/*  {
 { path: 'borrower', component: BorrowerComponent },
 { path: 'existingproperty', component: ExistingPropertyComponent},
 { path: 'existingproperty/:fosReference', component: ExistingPropertyComponent},
-//{ path: 'comment', component: CommentComponent}
+{ path: 'comment', component: CommentComponent}
 
 ];
 
