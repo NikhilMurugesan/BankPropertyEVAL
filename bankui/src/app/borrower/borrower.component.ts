@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router,NavigationExtras } from '@angular/router';
 import { Borrower } from '../borrower.model';
 import { BorrowerService } from '../borrower.service';
 import { JointBorrower } from '../jointborrower.model';
 import { User } from '../user.model';
 import { FacilityDetail } from '../FacilityDetail.model';
 import { JointBorrowers } from '../jointborrowers.model';
-
+import { DocumentUploadService } from '../document-upload.service';
 @Component({
   selector: 'app-borrower',
   templateUrl: './borrower.component.html',
@@ -27,12 +27,15 @@ export class BorrowerComponent implements OnInit {
   mainBorrowerAdded: boolean = false;
   successMessage: any;
   successMessage1: any;
+  uploadType: any;
+  uploadedDocuments: any[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private borrowerService: BorrowerService,
     private route: ActivatedRoute,
     private router: Router,
+    private documentUploadService :DocumentUploadService,
   ) {
     this.mainBorrowerForm = this.formBuilder.group({
       customerNumber: ['', Validators.required],
@@ -58,7 +61,25 @@ export class BorrowerComponent implements OnInit {
       this.ID=this.facility.id;
     });
   }
+  uploadDocument(): void {
+    const fileInput = document.getElementById('fileInput') as HTMLInputElement;
 
+    if (fileInput.files && fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+      const formData = new FormData();
+      formData.append('documentType', this.uploadType);
+      formData.append('document', file);
+      this.documentUploadService.upload(file).subscribe({
+        
+        next: (data) => {
+          console.log('Document submitted successfully:', data);
+        },
+        error:  (error) => {
+          console.error('Error submitting property valuation:', error);
+        }}
+      );
+    }
+  }
     addMainBorrower(): void {
     if (this.mainBorrowerForm.invalid) {
       return;
@@ -89,7 +110,13 @@ export class BorrowerComponent implements OnInit {
   }
   }
   goToAddComment(): void {
-    this.router.navigate(['/comment']);
+    const navigationExtras : NavigationExtras = {
+      state:{
+        user:this.user,
+        facility:this.facility
+      }
+    };
+    this.router.navigate(['/comment',this.ID]);
   }
   addJointBorrowers(): void {
     if (this.jointBorrowerForm.invalid) {
@@ -132,4 +159,5 @@ export class BorrowerComponent implements OnInit {
   }
   this.jointBorrowers.splice(index, 1);
   }
+  
 }

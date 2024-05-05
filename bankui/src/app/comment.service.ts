@@ -8,7 +8,7 @@ import { Comments } from './comments.model';
 })
 export class CommentService {
   private apiUrl = 'http://localhost:9090/api/comments'; // Adjust the URL according to your backend API
-
+  private apiUrl1 = 'http://localhost:9090/api/applications';
   constructor(private http: HttpClient) { }
 
   // Method to add a comment for a specific facility
@@ -24,5 +24,8 @@ export class CommentService {
   // Method to get all comments
   getAllComments(): Observable<Comments[]> {
     return this.http.get<Comments[]>(this.apiUrl);
+  }
+  submitapplication(facilityId: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl1}/${facilityId}`,{});
   }
 }

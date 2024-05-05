@@ -45,6 +45,8 @@ export class PropertyValuationService {
       );
   }
 
+  
+
   private handleError(error: any) {
     console.error('Error fetching property valuation data:', error);
     return throwError(error);

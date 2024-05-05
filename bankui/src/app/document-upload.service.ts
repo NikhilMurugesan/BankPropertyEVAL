@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { UploadDocument } from './uploaddocument.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,12 +9,13 @@ import { HttpClient } from '@angular/common/http';
 export class DocumentUploadService {
 
   constructor(private http: HttpClient) { }
+  private baseUrl = "http://localhost:9090/api/upload"
 
-  uploadDocument(uploadType: string, file: File) {
-    const formData = new FormData();
-    formData.append('documentType', uploadType);
-    formData.append('document', file);
 
-    return this.http.post('http://localhost:9090', formData);
+  upload(file: File): Observable<UploadDocument> {
+
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    return this.http.post<UploadDocument>(`${this.baseUrl}`, formData);
   }
 }

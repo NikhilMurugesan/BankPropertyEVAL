@@ -30,7 +30,8 @@ const routes: Routes = [/*  {
 { path: 'borrower', component: BorrowerComponent },
 { path: 'existingproperty', component: ExistingPropertyComponent},
 { path: 'existingproperty/:fosReference', component: ExistingPropertyComponent},
-{ path: 'comment', component: CommentComponent}
+{ path: 'comment', component: CommentComponent},
+{ path: 'comment/:ID', component: CommentComponent},
 
 ];
 

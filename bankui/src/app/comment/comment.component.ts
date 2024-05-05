@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { Router, response } from 'express';
+import { ActivatedRoute,Router } from '@angular/router';
 import { BorrowerService } from '../borrower.service';
 import { Comments } from '../comments.model';
 import { DocumentUploadService } from '../document-upload.service';
@@ -19,6 +18,7 @@ export class CommentComponent {
   uploadType: any;
   uploadedDocuments: any[] = [];
   newComment: string = '';
+  currentuser : User = new User();
   user :string = '';
   facility: FacilityDetail=new FacilityDetail();
   constructor(private formBuilder: FormBuilder,private commentsService: CommentService,private documentUploadService :DocumentUploadService,private route: ActivatedRoute,private router : Router) {
@@ -35,10 +35,10 @@ export class CommentComponent {
     if(this.facility.id!==undefined){
     this.commentsService.addComment(newComment,this.facility.id).subscribe({
       next: (response) => {
-        console.log('Property details retrieved successfully:', response);
+        console.log('Comment Added SucessFully', response);
       },
       error: (error) => {
-        console.error('Error retrieving property details:', error);
+        console.error('Error retrieving Comment details:', error);
       }
     });
   }
@@ -47,8 +47,21 @@ export class CommentComponent {
   ngOnInit(): void {
     
     this.route.params.subscribe(params => {
-      this.facility.id=params['facilityId'];
-      console.log('Route Parameters:', params,this.facility.id);
+      this.facility.id=params['ID'];
     });
+  }
+  submitapplication(): void {
+    if(this.facility.id!==undefined){
+    this.commentsService.submitapplication(this.facility.id).subscribe({
+      next: (response) => {
+        console.log('Application Added SucessFully', response);
+      },
+      error: (error) => {
+        console.error('Error retrieving Application details:', error);
+      }
+    });
+
+  }
+
   }
 }

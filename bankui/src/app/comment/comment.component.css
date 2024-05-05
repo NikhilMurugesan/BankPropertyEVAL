@@ -1,0 +1,51 @@
+.borrower-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .borrower-container h2 {
+    margin-bottom: 20px;
+  }
+  
+  .borrower-container input,
+  .borrower-container textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .borrower-container button {
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .borrower-container button:hover {
+    background-color: #0056b3;
+  }
+  
+  .comment-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .comment-table th, .comment-table td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .comment-table th {
+    background-color: #f2f2f2;
+  }
+  

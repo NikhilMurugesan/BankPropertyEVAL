@@ -3,6 +3,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 @Entity
 public class Application {
     @Id
@@ -11,6 +13,22 @@ public class Application {
 
 
     private String referenceNumber;
+
+    @OneToOne
+    @JoinColumn(name = "facility_id")
+    private FacilityDetail facility;
+
+    public Application(Long id, String referenceNumber, FacilityDetail facility) {
+        this.id = id;
+        this.referenceNumber = referenceNumber;
+        this.facility = facility;
+    }
+    public FacilityDetail getFacility() {
+        return facility;
+    }
+    public void setFacility(FacilityDetail facilityID) {
+        this.facility = facilityID;
+    }
     // Other fields
     public Long getId() {
         return id;

@@ -63,6 +63,30 @@
     </div>
   </div>
 
+  <div class="borrower-container">
+    <h2>Upload Section</h2>
+    <label for="fileInput">Select Document:</label>
+    <input type="file" id="fileInput" class="file-input">
+    <select [(ngModel)]="uploadType" class="document-type">
+      <option value="Title Deed">Title Deed</option>
+      <option value="National Identity Card">National Identity Card</option>
+      <option value="Building Permits">Building Permits</option>
+      <option value="Birth Certificate">Birth Certificate</option>
+      <option value="Marriage Certificate">Marriage Certificate</option>
+      <option value="Quotation">Quotation</option>
+      <option value="Letter of Intent">Letter of Intent</option>
+    </select>
+    <button type="button" class="upload-button" (click)="uploadDocument()">Upload</button>
+  </div>
+  
+  <div class="borrower-container">
+    <h2>Uploaded Documents</h2>
+    <ul class="document-list">
+      <li *ngFor="let document of uploadedDocuments">{{ document }}</li>
+    </ul>
+  </div>
+
+
   <button class="btn btn-primary" (click)="goToAddComment()">Add Comment</button>
 
   

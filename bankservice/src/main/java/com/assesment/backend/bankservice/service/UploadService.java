@@ -1,4 +1,6 @@
 package com.assesment.backend.bankservice.service;
+import java.io.File;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,16 +19,10 @@ public class UploadService {
         this.repository = repository;
     }
 
-    public UploadedDocument uploadDocument(String documentType, MultipartFile file) {
+    public UploadedDocument uploadDocument( MultipartFile file) {
         UploadedDocument document = new UploadedDocument();
-        document.setDocumentType(documentType);
-        document.setFileName(file.getOriginalFilename());
-
-        try {
-            document.setContent(file);
-        } catch (Exception e) {
-            throw new RuntimeException("Error uploading file: " + e.getMessage());
-        }
+        document.setDocumentType(file.getContentType());
+        document.setFileName(file.getName());
 
         return repository.save(document);
     }

@@ -28,8 +28,8 @@ public class CommentController {
     @PostMapping("/{facilityid}")
     public ResponseEntity<Comment> addComment(@RequestBody Comment comment,@PathVariable("facilityid") Long facilityID) {
         facilityDetail = facilityDetailService.getFacilityById(facilityID);
-        Comment savedComment = commentService.createComment(comment);
         comment.setFacility(facilityDetail);
+        Comment savedComment = commentService.createComment(comment);
         return new ResponseEntity<>(savedComment, HttpStatus.CREATED);
     }
 

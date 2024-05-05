@@ -16,7 +16,6 @@ public class UploadedDocument {
     private Long documentId;
     private String documentType;
     private String fileName;
-    private byte[] content;
     
     public String getDocumentType() {
         return documentType;
@@ -37,25 +36,11 @@ public class UploadedDocument {
         this.documentType = documentType;
         this.fileName = fileName;
     }
-     public void setContent(MultipartFile file) {
-        try {
-            this.content = file.getBytes();
-        } catch (IOException e) {
-            throw new RuntimeException("Error setting content: " + e.getMessage());
-        }
-    }
-    public byte[] getContent() {
-            return this.content;
-        }
     public Long getDocumentId() {
         return documentId;
     }
     public void setDocumentId(Long documentId) {
         this.documentId = documentId;
     }
-    public void setContent(byte[] content) {
-        this.content = content;
-    }
-
     // Getters, setters, and constructors
 }

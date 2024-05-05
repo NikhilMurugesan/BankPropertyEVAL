@@ -1,5 +1,6 @@
 package com.assesment.backend.bankservice.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,23 +17,33 @@ import java.time.LocalTime;
 import java.util.*;
 
 import  com.assesment.backend.bankservice.model.Application;
+import com.assesment.backend.bankservice.model.FacilityDetail;
 import com.assesment.backend.bankservice.repository.ApplicationRepository;
 import com.assesment.backend.bankservice.service.ApplicationService;
+import com.assesment.backend.bankservice.service.FacilityDetailService;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/applications")
 public class ApplicationController {
-    private final ApplicationService applicationService;
+    @Autowired
+    private ApplicationService applicationService;
+
     private ApplicationRepository applicationRepository;
     // Constructor
+    @Autowired
+    private FacilityDetailService facilityDetailService;
+    private FacilityDetail facilityDetail;
 
     public ApplicationController() {
         this.applicationService = new ApplicationService();
     }
 
-    @PostMapping("/createapplication")
-    public ResponseEntity<Application> createApplication(@RequestBody Application application) {
+    @PostMapping("/{facility_id}")
+    public ResponseEntity<Application> createApplication(@PathVariable("facility_id") Long facilityID) {
+        Application application = new Application();
+        facilityDetail = facilityDetailService.getFacilityById(facilityID);
+        application.setFacility(facilityDetail);
         Application createdApplication = applicationService.createApplication(application);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdApplication);
     }

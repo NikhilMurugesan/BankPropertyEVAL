@@ -19,8 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BorrowerComponent } from './borrower/borrower.component';
 import { NewPropertyComponent } from './new-property/new-property.component';
 import { ExistingPropertyComponent } from './existing-property/existing-property.component';
-import { CommentComponent } from './comment/comment.component';
-@NgModule({
+import { CommentComponent } from './comment/comment.component';@NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
@@ -30,7 +29,7 @@ import { CommentComponent } from './comment/comment.component';
     NewPropertyComponent,
     ExistingPropertyComponent,
     CommentComponent,
-    
+   
   ],
   imports: [
     BrowserModule,
