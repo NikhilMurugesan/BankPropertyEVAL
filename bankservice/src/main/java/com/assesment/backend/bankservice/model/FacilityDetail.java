@@ -9,18 +9,18 @@ import jakarta.persistence.Id;
 public class FacilityDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long facilityId;
     private String type; // Revolving or Non-revolving
     private String category; // 25000 - Apartment, 25010 – PBWM Housing
     private String purpose; // Reparation, Inheritance, Construction
     private int termMonths;
     private String currency; // MUR, EUR, USD, GBP, ZAR
     private double amount;
-    public Long getId() {
-        return id;
+    public Long getfacilityId() {
+        return facilityId;
     }
-    public void setId(Long id) {
-        this.id = id;
+    public void setfacilityId(Long facilityId) {
+        this.facilityId = facilityId;
     }
     public String getType() {
         return type;
@@ -58,9 +58,9 @@ public class FacilityDetail {
     public void setAmount(double amount) {
         this.amount = amount;
     }
-    public FacilityDetail(Long id, String type, String category, String purpose, int termMonths, String currency,
+    public FacilityDetail(Long facilityId, String type, String category, String purpose, int termMonths, String currency,
             double amount) {
-        this.id = id;
+        this.facilityId = facilityId;
         this.type = type;
         this.category = category;
         this.purpose = purpose;

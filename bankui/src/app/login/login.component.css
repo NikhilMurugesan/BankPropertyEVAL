@@ -1,36 +1,208 @@
+/* General styling */
 .container {
-  margin-top: 50px;
-}
-
-.card {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.card-header {
-  background-color: #007bff;
-  color: #fff;
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
-}
-
-.card-body {
+  max-width: 600px;
+  margin: 0 auto;
   padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333;
 }
 
 .form-group {
   margin-bottom: 20px;
 }
 
-.btn-primary {
-  background-color: #007bff;
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #666;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  width: calc(100% - 16px);
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+select {
+  appearance: none;
+}
+
+button[type="submit"] {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
   border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.btn-primary:hover {
-  background-color: #0056b3;
+button[type="submit"]:hover {
+  background-color: #45a049;
 }
 
-.alert-danger {
-  margin-top: 20px;
+/* Disabled input style */
+input[disabled] {
+  background-color: #eee;
+  color: #666;
 }
+
+/* Compact layout for smaller screens */
+@media (max-width: 480px) {
+  input[type="text"],
+  input[type="number"],
+  select {
+    width: 100%;
+  }
+}
+/* Main container */
+.container {
+max-width: 800px;
+margin: 0 auto;
+padding: 10px; /* Reduce padding */
+border: 1px solid #ccc;
+border-radius: 5px;
+background-color: #f9f9f9;
+}
+
+/* Form styles */
+form {
+margin-bottom: 10px; /* Reduce margin */
+}
+
+label {
+font-weight: bold;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+textarea,
+input[type="file"],
+select {
+width: calc(100% - 20px); /* Adjust width */
+padding: 8px; /* Reduce padding */
+margin-bottom: 8px; /* Reduce margin */
+border: 1px solid #ccc;
+border-radius: 5px;
+}
+
+button {
+padding: 8px 16px; /* Reduce padding */
+margin-bottom: 8px; /* Reduce margin */
+border: none;
+border-radius: 5px;
+background-color: #007bff;
+color: #fff;
+cursor: pointer;
+}
+
+button:hover {
+background-color: #0056b3;
+}
+
+/* Table styles */
+table {
+width: 100%;
+border-collapse: collapse;
+}
+
+th, td {
+padding: 6px; /* Reduce padding */
+border-bottom: 1px solid #ddd;
+text-align: left;
+}
+
+th {
+background-color: #f2f2f2;
+}
+
+/* Uploaded documents list */
+ul {
+list-style-type: none;
+padding: 0;
+}
+
+ul li {
+margin-bottom: 4px; /* Reduce margin */
+}
+
+/* Responsive styles */
+@media screen and (max-width: 600px) {
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+textarea,
+input[type="file"],
+select {
+  width: 100%;
+}
+}
+
+/* Horizontal form layout */
+.form-group {
+display: flex;
+flex-direction: row;
+align-items: center;
+}
+
+.form-group label {
+flex: 0 0 30%; /* Adjust label width */
+margin-right: 10px; /* Add margin between label and input */
+}
+
+.form-group input,
+.form-group select {
+flex: 1;
+}
+/* Grid Layout */
+.joint-borrowers-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust column width as needed */
+gap: 20px; /* Adjust gap between grid items */
+}
+
+/* Individual Borrower Card */
+.borrower-card {
+padding: 10px;
+border: 1px solid #ccc;
+border-radius: 5px;
+}
+
+.borrower-card div {
+margin-bottom: 5px;
+}
+
+.borrower-card button {
+margin-top: 10px;
+}
+
+.alert.alert-success {
+color: #155724; /* Text color */
+background-color: #d4edda; /* Background color */
+border-color: #c3e6cb; /* Border color */
+padding: 0.75rem 1.25rem; /* Padding */
+margin-bottom: 1rem; /* Bottom margin */
+border: 1px solid transparent; /* Transparent border */
+border-radius: 0.25rem; /* Border radius */
+}
+
+.alert.alert-success hr {
+border-top-color: #c3e6cb; /* Border color for horizontal rule */
+}
+
+.alert.alert-success .alert-link {
+color: #0c560e; /* Link color */
+}
+
+/* Additional customizations as needed */

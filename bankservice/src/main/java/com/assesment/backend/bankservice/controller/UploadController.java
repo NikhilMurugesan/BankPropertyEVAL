@@ -6,9 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.assesment.backend.bankservice.model.UploadedDocument;
-import com.assesment.backend.bankservice.repository.UploadedDocumentRepository;
 import com.assesment.backend.bankservice.service.UploadService;
 
 @RestController

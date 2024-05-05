@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PropertyValuationService } from '../property-valuation.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { FacilityDetail } from '../FacilityDetail.model';
 @Component({
   selector: 'app-property-valuation',
@@ -8,6 +8,9 @@ import { FacilityDetail } from '../FacilityDetail.model';
   styleUrl: './property-valuation.component.css'
 })
 export class PropertyValuationComponent implements OnInit{
+navigateToNewProperty() {
+throw new Error('Method not implemented.');
+}
 
   
   fosReference: string | undefined;
@@ -15,17 +18,6 @@ export class PropertyValuationComponent implements OnInit{
   initiatorName: string | undefined;
   businessUnit: string | undefined;
   contactNumber: string | undefined;
-  typesOfFacility: any[] = [];
-  categories: any[] = [];
-  purposesOfValuation: any[] = [];
-  currencies: any[] = [];
-  isNewEvaluation: boolean = true; // Flag to determine if it's a new evaluation
-  typeOfFacility: string | undefined;
-  category: string | undefined;
-  purpose: string | undefined;
-  term: number | undefined;
-  currency: string | undefined;
-  amount: number | undefined;
   user: any;
 
   constructor(private propertyValuationService: PropertyValuationService,private route: ActivatedRoute,private router : Router  ) { }
@@ -34,21 +26,6 @@ export class PropertyValuationComponent implements OnInit{
     this.route.params.subscribe(params => {
       console.log('Route Parameters:', params);
       this.user = params;
-    });
-    this.propertyValuationService.getTypeOfFacility().subscribe(data => {
-      this.typesOfFacility = data;
-    });
-
-    this.propertyValuationService.getCategories().subscribe(data => {
-      this.categories = data;
-    });
-
-    this.propertyValuationService.getPurposesOfValuation().subscribe(data => {
-      this.purposesOfValuation = data;
-    });
-
-    this.propertyValuationService.getCurrencies().subscribe(data => {
-      this.currencies = data;
     });
     this.route.params.subscribe(params => {
       // Retrieve user details from route parameters
@@ -62,53 +39,44 @@ export class PropertyValuationComponent implements OnInit{
     });
     };
     facility: FacilityDetail = new FacilityDetail();
-    onTypeOfFacilityChange(event: Event)
-    {
-      const target = event.target as HTMLSelectElement;
-      this.typeOfFacility = target.value;
-     
-    }
-    onCategoryChange(event: Event)
-    {
-      const target = event.target as HTMLSelectElement;
-      this.category = target.value;
-     
-    }
-    onCurrencyChange(event: Event)
-    {
-      const target = event.target as HTMLSelectElement;
-      this.currency = target.value;
-     
-    }
-    onPurposeChange(event: Event)
-    {
-      const target = event.target as HTMLSelectElement;
-      this.purpose = target.value;
-     
-    }
-    submitForm()
-    {
-      this.facility.type = this.typeOfFacility;
-      this.facility.category = this.category;
-      this.facility.purpose = this.purpose;
-      this.facility.termMonths = this.term;
-      this.facility.currency = this.currency;
-      this.facility.amount = this.amount;
-      console.log(this.facility);
-      this.propertyValuationService.createPropertyValuationData(this.facility).subscribe({
-        
-        next: (data) => {
-        
-          // Handle success response
-          console.log('Property valuation submitted successfully:', data);
-          // Navigate to browser or perform other actions upon success
-          this.router.navigate(['/b', this.user]); // Replace '/browser' with your desired route
-        },
-        error:  (error) => {
-          // Handle error response
-          console.error('Error submitting property valuation:', error);
-          // You can display an error message or perform other error handling here
-        }}
-      );
+    submitForm() {
+      // Validate form data
+      if (!this.typeOfEvaluation) {
+        // Display error message or perform validation logic
+        console.error('Type of Evaluation is required.');
+        return; // Prevent form submission if data is invalid
+      }
+      
+  
+      if (this.typeOfEvaluation === 'Existing' && !this.fosReference) {
+        // Display error message or perform validation logic
+        console.error('FOS Reference is required for Existing type.');
+        return; // Prevent form submission if data is invalid
+      }
+  
+      // If form data is valid, proceed with submission
+      console.log('Form submitted successfully!');
+      console.log('Type of Evaluation:', this.typeOfEvaluation);
+      console.log('FOS Reference:', this.fosReference);
+
+      if (this.typeOfEvaluation === 'Existing' && this.fosReference) {
+            this.router.navigate(['/existingproperty',this.fosReference]); // Replace '/browser' with your desired route
+      }
+
+      if (this.typeOfEvaluation=== 'New'){
+        this.router.navigate(['/newproperty',this.user]);
+      }
+
+  
+      // Optionally, you can submit the form data to a backend service here
+      // For example:
+      // this.propertyValuationService.submitForm(this.facility).subscribe(response => {
+      //   console.log('Form submitted successfully:', response);
+      //   // Optionally, navigate to another page upon successful form submission
+      //   // this.router.navigate(['/success']);
+      // }, error => {
+      //   console.error('Error submitting form:', error);
+      //   // Handle error response
+      // });
     }
   }

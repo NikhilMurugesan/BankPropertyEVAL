@@ -1,0 +1,22 @@
+<p>comment</p>
+<div class="borrower-container">
+    <h2>Comments</h2>
+    <textarea class="comment-input" [(ngModel)]="newComment" placeholder="Add a comment"></textarea>
+    <button type="button" class="add-button" (click)="addComment()">Add Comment</button>
+    <table class="comment-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>User</th>
+          <th>Comment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let comment of comments.slice().reverse()">
+          <td>{{ comment.date }}</td>
+          <td>{{ comment.user }}</td>
+          <td>{{ comment.comment }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

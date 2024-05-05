@@ -1,61 +1,46 @@
 package com.assesment.backend.bankservice.model;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 @Entity
 public class MainBorrower {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long mainBorrowerId;
     private String customerNumber;
     private String customerName;
     private String contactNumber;
     private String email;
     private String address;
-
-    @OneToMany(mappedBy = "mainBorrower", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Borrower> jointBorrowers = new ArrayList<>();
-
-    // Constructors, getters, setters, and other methods
+    
+    @OneToOne
+    @JoinColumn(name = "facility_id")
+    private FacilityDetail facility;
 
     public MainBorrower() {
     }
 
-    public MainBorrower(Long id, String customerNumber, String customerName, String contactNumber, String email,
-            String address, List<Borrower> jointBorrowers) {
-        this.id = id;
+    public MainBorrower(Long mainBorrowerId, String customerNumber, String customerName, String contactNumber,
+            String email, String address, FacilityDetail facility) {
+        this.mainBorrowerId = mainBorrowerId;
         this.customerNumber = customerNumber;
         this.customerName = customerName;
         this.contactNumber = contactNumber;
         this.email = email;
         this.address = address;
-        this.jointBorrowers = jointBorrowers;
+        this.facility = facility;
     }
 
-    public void addJointBorrower(Borrower jointBorrower) {
-        jointBorrower.setMainBorrower(this);
-        jointBorrowers.add(jointBorrower);
+    public Long getMainBorrowerId() {
+        return mainBorrowerId;
     }
 
-    public void removeJointBorrower(Borrower jointBorrower) {
-        jointBorrower.setMainBorrower(null);
-        jointBorrowers.remove(jointBorrower);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setMainBorrowerId(Long mainBorrowerId) {
+        this.mainBorrowerId = mainBorrowerId;
     }
 
     public String getCustomerNumber() {
@@ -98,11 +83,11 @@ public class MainBorrower {
         this.address = address;
     }
 
-    public List<Borrower> getJointBorrowers() {
-        return jointBorrowers;
+    public FacilityDetail getFacility() {
+        return facility;
     }
 
-    public void setJointBorrowers(List<Borrower> jointBorrowers) {
-        this.jointBorrowers = jointBorrowers;
+    public void setFacility(FacilityDetail facility) {
+        this.facility = facility;
     }
 }

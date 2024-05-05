@@ -1,0 +1,27 @@
+<div class="container">
+    <h2>Existing Property Details</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Facility ID</th>
+                <th>Type of Facility</th>
+                <th>Category</th>
+                <th>Purpose of Valuation</th>
+                <th>Term in Months</th>
+                <th>CCY</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let property of existingProperties">
+                <td>{{ property[0] }}</td>
+                <td>{{ property[6] }}</td>
+                <td>{{ property[2] }}</td>
+                <td>{{ property[4] }}</td>
+                <td>{{ property[5] }}</td>
+                <td>{{ property[3] }}</td>
+                <td>{{ property[1] }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

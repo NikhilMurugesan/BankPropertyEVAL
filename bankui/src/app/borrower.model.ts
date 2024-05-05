@@ -1,8 +1,16 @@
+import { FacilityDetail } from "./FacilityDetail.model";
+
 export class Borrower {
-    customerNumber: string = '';
-    customerName: string = '';
-    contactNumber: string = '';
-    email: string = '';
-    address: string = '';
-    constructor(){};
+  id: number | undefined;
+  customerNumber: string| undefined;
+  customerName: string| undefined;
+  contactNumber: string| undefined;
+  email: string| undefined;
+  address: string| undefined;
+
+  constructor(
+    
+  ) {
+   
   }
+}

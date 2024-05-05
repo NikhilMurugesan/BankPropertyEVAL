@@ -4,40 +4,51 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import jakarta.persistence.EntityNotFoundException;
-import com.assesment.backend.bankservice.model.Borrower;
-import com.assesment.backend.bankservice.repository.BorrowerRepository;
+import com.assesment.backend.bankservice.model.JointBorrower;
+import com.assesment.backend.bankservice.model.MainBorrower;
+import com.assesment.backend.bankservice.repository.JointBorrowerRepository;
+import com.assesment.backend.bankservice.repository.MainBorrowerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Optional;
 
 @Service
 public class BorrowerService {
- private final BorrowerRepository borrowerRepository;
 
-    public BorrowerService(BorrowerRepository borrowerRepository) {
-        this.borrowerRepository = borrowerRepository;
+    @Autowired
+    private MainBorrowerRepository mainBorrowerRepository;
+
+    @Autowired
+    private JointBorrowerRepository jointBorrowerRepository;
+
+    public MainBorrower saveMainBorrower(MainBorrower mainBorrower) {
+        return mainBorrowerRepository.save(mainBorrower);
     }
 
-    public Borrower createBorrower(Borrower borrower) {
-        // You may add additional validation logic here before saving the borrower
-        return borrowerRepository.save(borrower);
+    public void deleteMainBorrower(Long mainBorrowerId) {
+        mainBorrowerRepository.deleteById(mainBorrowerId);
     }
 
-    public List<Borrower> getAllBorrowers() {
-        return borrowerRepository.findAll();
+    public JointBorrower saveJointBorrower(JointBorrower jointBorrower) {
+        return jointBorrowerRepository.save(jointBorrower);
     }
 
-    public Borrower getBorrowerById(Long id) {
-        return borrowerRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Borrower not found with id: " + id));
+    public void deleteJointBorrower(Long jointBorrowerId) {
+        jointBorrowerRepository.deleteById(jointBorrowerId);
     }
 
-    public Borrower updateBorrower(Long id, Borrower updatedBorrower) {
-        Borrower existingBorrower = getBorrowerById(id);
-        // Update the fields of existingBorrower with the fields of updatedBorrower
-        // Handle other logic as needed
-        return borrowerRepository.save(existingBorrower);
+    public Optional<MainBorrower> findMainBorrowerById(Long mainBorrowerId) {
+        return mainBorrowerRepository.findById(mainBorrowerId);
     }
 
-    public void deleteBorrower(Long id) {
-        borrowerRepository.deleteById(id);
+    public Optional<JointBorrower> findJointBorrowerById(Long jointBorrowerId) {
+        return jointBorrowerRepository.findById(jointBorrowerId);
+    }
+
+    public List<MainBorrower> findAllMainBorrowers() {
+        return mainBorrowerRepository.findAll();
+    }
+
+    public List<JointBorrower> findAllJointBorrowers() {
+        return jointBorrowerRepository.findAll();
     }
 }

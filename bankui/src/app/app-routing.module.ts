@@ -4,6 +4,9 @@ import { LoginComponent } from './login/login.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { PropertyValuationComponent } from './property-valuation/property-valuation.component';
 import { BorrowerComponent } from './borrower/borrower.component';
+import { NewPropertyComponent } from './new-property/new-property.component';
+import { ExistingPropertyComponent } from './existing-property/existing-property.component';
+//import { CommentComponent } from './comment/comment.component';
 
 const routes: Routes = [/*  {
   path: '',
@@ -21,7 +24,13 @@ const routes: Routes = [/*  {
   path: 'b',
   component: BorrowerComponent,
 }, 
-{ path: 'p', component: PropertyValuationComponent }
+{ path: 'p', component: PropertyValuationComponent },
+{ path: 'newproperty', component: NewPropertyComponent},
+{ path: 'borrower', component: BorrowerComponent },
+{ path: 'existingproperty', component: ExistingPropertyComponent},
+{ path: 'existingproperty/:fosReference', component: ExistingPropertyComponent},
+//{ path: 'comment', component: CommentComponent}
+
 ];
 
 @NgModule({

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { FacilityDetail } from './FacilityDetail.model';
@@ -33,6 +33,9 @@ export class PropertyValuationService {
       .pipe(
         catchError(this.handleError)
       );
+  }
+  getPropertyDetailsByFOSReference(fosReference: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/property/details/${fosReference}`);
   }
 
   createPropertyValuationData(propertyValuationData: FacilityDetail): Observable<any> {

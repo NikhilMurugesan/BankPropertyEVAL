@@ -1,3 +1,21 @@
 {
-    "java.configuration.updateBuildConfiguration": "automatic"
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.compile.nullAnalysis.mode": "automatic",
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 8800,
+            "driver": "MySQL",
+            "name": "DBConnect",
+            "group": "MySQL",
+            "database": "bank",
+            "username": "root",
+            "askForPassword": true
+        }
+    ]
 }

@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { DocumentUploadService } from '../document-upload.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Borrower } from '../borrower.model';
-import { Comments } from '../comments.model';
-import { User } from '../user.model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BorrowerService } from '../borrower.service';
+import { JointBorrower } from '../jointborrower.model';
+import { User } from '../user.model';
+import { FacilityDetail } from '../FacilityDetail.model';
+import { JointBorrowers } from '../jointborrowers.model';
+
 @Component({
   selector: 'app-borrower',
   templateUrl: './borrower.component.html',
@@ -14,14 +16,24 @@ import { BorrowerService } from '../borrower.service';
 export class BorrowerComponent implements OnInit {
 
   mainBorrower: Borrower = new Borrower();
-  jointBorrowers: Borrower[] = [];
-  comments: Comments[] = [];
-  uploadType: any;
-  uploadedDocuments: any[] = [];
-  newComment: string = '';
-  user : User = new User();
+  jointBorrowers: JointBorrower[] = [];
+  jointBorrower: JointBorrower = new JointBorrower();
+  user: User = new User();
+  facility: FacilityDetail=new FacilityDetail();
+  ID: number|undefined;
+  jointborrowerID: number|undefined;
   mainBorrowerForm: FormGroup;
-  constructor(private formBuilder: FormBuilder,private borrowerService: BorrowerService,private documentUploadService :DocumentUploadService,private route: ActivatedRoute,private router : Router) {
+  jointBorrowerForm: FormGroup;
+  mainBorrowerAdded: boolean = false;
+  successMessage: any;
+  successMessage1: any;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private borrowerService: BorrowerService,
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {
     this.mainBorrowerForm = this.formBuilder.group({
       customerNumber: ['', Validators.required],
       customerName: ['', Validators.required],
@@ -29,101 +41,95 @@ export class BorrowerComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       address: ['', Validators.required]
     });
-   }
 
-  ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      console.log('Route Parameters:Brower', params);
-      this.user.username = params['username'];
-      console.log('Route Parameters:Brower', this.user.username);
+    this.jointBorrowerForm = this.formBuilder.group({
+      customerNumber: ['', Validators.required],
+      customerName: ['', Validators.required],
+      contactNumber: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      address: ['', Validators.required]
     });
   }
-  addMainBorrower()
-  {
+
+  ngOnInit(): void {
+    
+    this.route.params.subscribe(params => {
+      this.facility.id=params['facilityId'];
+      this.ID=this.facility.id;
+    });
+  }
+
+    addMainBorrower(): void {
     if (this.mainBorrowerForm.invalid) {
       return;
     }
-
     const mainBorrower: Borrower = {
       customerNumber: this.mainBorrowerForm.value.customerNumber,
       customerName: this.mainBorrowerForm.value.customerName,
       contactNumber: this.mainBorrowerForm.value.contactNumber,
       email: this.mainBorrowerForm.value.email,
-      address: this.mainBorrowerForm.value.address
+      address: this.mainBorrowerForm.value.address,
+      id: 0
     };
-
-    this.borrowerService.addMainBorrower(mainBorrower).subscribe({
+    console.log(mainBorrower);
+    if(this.ID!== undefined) {
+    this.borrowerService.addMainBorrower(mainBorrower,this.ID).subscribe({
       next: (response) => {
         console.log('Main borrower added successfully:', response);
-        this.mainBorrowerForm.reset();
+        this.successMessage = 'Main borrower added successfully';
+        this.mainBorrowerAdded = true;
       },
       error: (error) => {
         console.error('Error adding main borrower:', error);
       }
     });
+    }else {
+      // Handle the case where the value is undefined
+      console.error("this.facility.id is undefined");
   }
-  addJointBorrower(): void {
-    this.jointBorrowers.push(new Borrower());
   }
-
-  removeJointBorrower(index: number): void {
-    this.jointBorrowers.splice(index, 1);
+  goToAddComment(): void {
+    this.router.navigate(['/comment']);
   }
-
-  addComment(): void {
-    // Add a new comment with current date and user information
-    const currentDate = new Date();
+  addJointBorrowers(): void {
+    if (this.jointBorrowerForm.invalid) {
+      return;
+    }
     
-    this.route.params.subscribe({
-      next: (params) => {
-        this.mainBorrower.customerNumber = params['customerNumber'];
-        this.mainBorrower.customerName = params['customerName'];
-        this.mainBorrower.contactNumber = params['contactNumber'];
-        this.mainBorrower.email = params['email'];
-        this.mainBorrower.address = params['address'];
+
+    const jointBorrower: JointBorrower = {
+      customerNumber: this.jointBorrowerForm.value.customerNumber,
+      customerName: this.jointBorrowerForm.value.customerName,
+      contactNumber: this.jointBorrowerForm.value.contactNumber,
+      email: this.jointBorrowerForm.value.email,
+      address: this.jointBorrowerForm.value.address,
+      jointBorrowerId: this.jointBorrowerForm.value.id
+    };
+    
+    this.borrowerService.addJointBorrower(jointBorrower).subscribe({
+      next: (response) => {
+        console.log('Joint borrowers added successfully:', response);
+        this.successMessage1 = 'Joint borrower added successfully';
+        this.jointBorrowerForm.reset();
+        this.jointBorrowers.push(response);
       },
       error: (error) => {
-        console.log(error);
+        console.error('Error adding joint borrowers:', error);
       }
     });
-    const newComment: Comments = {
-      date: currentDate.toISOString(),
-      // You can replace this with actual user information
-      user: this.user.username,
-      comment: this.newComment
-    };
-    this.comments.push(newComment);
-    this.newComment = ''; // Clear the input field after adding the comment
   }
 
-  uploadDocument(): void {
-    const fileInput = document.getElementById('fileInput') as HTMLInputElement;
-
-    if (fileInput.files && fileInput.files.length > 0) {
-      const file = fileInput.files[0];
-
-      // Prepare data to send to server (replace with your API endpoint)
-      const formData = new FormData();
-      formData.append('documentType', this.uploadType);
-      formData.append('document', file);
-
-
-      // Send the file to the server using HttpClient
-      this.documentUploadService.uploadDocument(this.uploadType,file).subscribe({
-        
-        next: (data) => {
-        
-          // Handle success response
-          console.log('Property valuation submitted successfully:', data);
-          // Navigate to browser or perform other actions upon success
-          this.router.navigate(['/b']); // Replace '/browser' with your desired route
-        },
-        error:  (error) => {
-          // Handle error response
-          console.error('Error submitting property valuation:', error);
-          // You can display an error message or perform other error handling here
-        }}
-      );
-    }
+  removeJointBorrower(index: number,borrower:JointBorrower): void {
+    if( borrower.jointBorrowerId!==undefined){
+    this.borrowerService.deleteJointBorrower( borrower.jointBorrowerId).subscribe({
+      next: (response) => {
+        console.log('Joint borrowers removed successfully:', response);
+      },
+      error: (error) => {
+        console.error('Error removing joint borrowers:', error);
+      }
+    });
+  }
+  this.jointBorrowers.splice(index, 1);
   }
 }

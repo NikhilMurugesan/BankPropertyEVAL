@@ -13,16 +13,11 @@ import jakarta.persistence.Id;
 public class UploadedDocument {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long documentId;
     private String documentType;
     private String fileName;
     private byte[] content;
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
+    
     public String getDocumentType() {
         return documentType;
     }
@@ -38,7 +33,7 @@ public class UploadedDocument {
     public UploadedDocument() {
     }
     public UploadedDocument(Long id, String documentType, String fileName) {
-        this.id = id;
+        this.documentId = id;
         this.documentType = documentType;
         this.fileName = fileName;
     }
@@ -52,6 +47,15 @@ public class UploadedDocument {
     public byte[] getContent() {
             return this.content;
         }
+    public Long getDocumentId() {
+        return documentId;
+    }
+    public void setDocumentId(Long documentId) {
+        this.documentId = documentId;
+    }
+    public void setContent(byte[] content) {
+        this.content = content;
+    }
 
     // Getters, setters, and constructors
 }

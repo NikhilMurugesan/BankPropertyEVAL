@@ -1,30 +1,54 @@
 package com.assesment.backend.bankservice.model;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+
 @Entity
-public class Borrower {
+public class JointBorrower {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long jointBorrowerId;
+    
     private String customerNumber;
+    
     private String customerName;
+    
     private String contactNumber;
+    
     private String email;
+    
     private String address;
-    private boolean isMainBorrower; // Indicates whether this borrower is the Main Borrower
+    
+    @OneToOne
+    @JoinColumn(name = "main_borrower_id")
+    private MainBorrower mainBorrower;
 
-    @ManyToOne
-    private MainBorrower mainBorrower; // Reference to the Main Borrower entity
-
-    public Long getId() {
-        return id;
+    public JointBorrower(Long jointBorrowerId, String customerNumber, String customerName, String contactNumber,
+            String email, String address, MainBorrower mainBorrower) {
+        this.jointBorrowerId = jointBorrowerId;
+        this.customerNumber = customerNumber;
+        this.customerName = customerName;
+        this.contactNumber = contactNumber;
+        this.email = email;
+        this.address = address;
+        this.mainBorrower = mainBorrower;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public JointBorrower() {
+    }
+
+    public Long getJointBorrowerId() {
+        return jointBorrowerId;
+    }
+
+    public void setJointBorrowerId(Long jointBorrowerId) {
+        this.jointBorrowerId = jointBorrowerId;
     }
 
     public String getCustomerNumber() {
@@ -67,14 +91,6 @@ public class Borrower {
         this.address = address;
     }
 
-    public boolean isMainBorrower() {
-        return isMainBorrower;
-    }
-
-    public void setMainBorrower(boolean isMainBorrower) {
-        this.isMainBorrower = isMainBorrower;
-    }
-
     public MainBorrower getMainBorrower() {
         return mainBorrower;
     }
@@ -83,20 +99,5 @@ public class Borrower {
         this.mainBorrower = mainBorrower;
     }
 
-    public Borrower(Long id, String customerNumber, String customerName, String contactNumber, String email,
-            String address, boolean isMainBorrower, MainBorrower mainBorrower) {
-        this.id = id;
-        this.customerNumber = customerNumber;
-        this.customerName = customerName;
-        this.contactNumber = contactNumber;
-        this.email = email;
-        this.address = address;
-        this.isMainBorrower = isMainBorrower;
-        this.mainBorrower = mainBorrower;
-    }
-
-    public Borrower() {
-    }
-
-    // Constructors, getters, setters, and other methods
+    // Getters and setters
 }
