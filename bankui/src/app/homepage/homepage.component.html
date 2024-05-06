@@ -1,1 +1,24 @@
-<p>homepage works!</p>
+<table>
+  <thead>
+    <tr>
+      <th>Reference Number</th>
+      <th>Facility ID</th>
+      <th>Amount</th>
+      <th>Type of Facility</th>
+      <th>Category</th>
+      <th>Has Main Borrower</th>
+      <th>Main Borrower Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of data">
+      <td>{{ item[0] }}</td>
+      <td>{{ item[1] }}</td>
+      <td>{{ item[2] }}</td>
+      <td>{{ item[3] }}</td>
+      <td>{{ item[4] }}</td>
+      <td>{{ item[5] === 1 ? 'Yes' : 'No' }}</td>
+      <td>{{ item[6] }}</td>
+    </tr>
+  </tbody>
+</table>

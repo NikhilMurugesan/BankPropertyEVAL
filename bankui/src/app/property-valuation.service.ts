@@ -46,7 +46,7 @@ export class PropertyValuationService {
   }
 
   getallApplications(): Observable<any[]> {
-    return this.http.get<any[]>(`http://localhost:9090/api/applications`)
+    return this.http.get<any[]>(`http://localhost:9090/api/applications/all`)
      .pipe(
         catchError(this.handleError)
       );
