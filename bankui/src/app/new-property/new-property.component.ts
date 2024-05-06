@@ -53,14 +53,11 @@ export class NewPropertyComponent {
   }
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      // Retrieve user details from route parameters
       const userDetails = params;
       console.log(userDetails);
-      // Set user details to component properties
       this.initiatorName = userDetails['initiatorName'];
       this.businessUnit = userDetails['businessUnit'];
       this.contactNumber = userDetails['contactNumber'];
-      // Set other user details accordingly
     });
     this.route.params.subscribe(params => {
       console.log('Route Parameters:', params);
@@ -92,7 +89,6 @@ export class NewPropertyComponent {
       
       next: (data) => {
       
-        // Handle success response
         console.log('Property valuation submitted successfully:', data);
         let NavigationExtras : NavigationExtras = {
           state:{
@@ -100,13 +96,13 @@ export class NewPropertyComponent {
             facility:this.facility
           }
         };
-        // Navigate to browser or perform other actions upon success
-        this.router.navigate(['/b',data]); // Replace '/browser' with your desired route
+       
+        this.router.navigate(['/b',data]); 
       },
       error:  (error) => {
-        // Handle error response
+       
         console.error('Error submitting property valuation:', error);
-        // You can display an error message or perform other error handling here
+       
       }}
     );
   }
