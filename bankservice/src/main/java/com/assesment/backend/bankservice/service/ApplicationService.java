@@ -41,6 +41,8 @@ public class ApplicationService {
         return applicationRepository.findByReferenceNumber(referenceNumber);
     }
 
-    // Other methods
+    public Object getAllApplication(){
+        return applicationRepository.findAllByReferenceNumber();
+    }
 }
 

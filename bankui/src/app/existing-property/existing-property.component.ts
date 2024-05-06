@@ -21,7 +21,7 @@ export class ExistingPropertyComponent implements OnInit {
           next: (response) => {
             console.log('Property details retrieved successfully:', response);
            this.existingProperties = response;
-           console.log(this.existingProperties); // Assign response to existingProperties array
+           console.log(this.existingProperties); 
           },
           error: (error) => {
             console.error('Error retrieving property details:', error);

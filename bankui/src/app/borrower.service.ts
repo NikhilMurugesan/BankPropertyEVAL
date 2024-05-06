@@ -24,8 +24,8 @@ export class BorrowerService {
   }
 
   // Method to add a joint borrower
-  addJointBorrower(jointBorrower: JointBorrower): Observable<JointBorrower> {
-    return this.http.post<JointBorrower>(`${this.apiUrl}/joint`, jointBorrower);
+  addJointBorrower(jointBorrower: JointBorrower,mainid:number): Observable<JointBorrower> {
+    return this.http.post<JointBorrower>(`${this.apiUrl}/joint/${mainid}`, jointBorrower);
   }
   addJointBorrowers(jointBorrower: Borrower[]): Observable<JointBorrowers> {
     return this.http.post<JointBorrowers>(`${this.apiUrl}/joint`, jointBorrower);

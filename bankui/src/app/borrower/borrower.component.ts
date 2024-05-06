@@ -29,6 +29,7 @@ export class BorrowerComponent implements OnInit {
   successMessage1: any;
   uploadType: any;
   uploadedDocuments: any[] = [];
+  mainborrowerid: number = 0;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -90,7 +91,7 @@ export class BorrowerComponent implements OnInit {
       contactNumber: this.mainBorrowerForm.value.contactNumber,
       email: this.mainBorrowerForm.value.email,
       address: this.mainBorrowerForm.value.address,
-      id: 0
+      mainBorrowerId: 0
     };
     console.log(mainBorrower);
     if(this.ID!== undefined) {
@@ -99,6 +100,10 @@ export class BorrowerComponent implements OnInit {
         console.log('Main borrower added successfully:', response);
         this.successMessage = 'Main borrower added successfully';
         this.mainBorrowerAdded = true;
+        if(response.mainBorrowerId !== undefined)
+          {
+        this.mainborrowerid = response.mainBorrowerId;
+          }
       },
       error: (error) => {
         console.error('Error adding main borrower:', error);
@@ -133,7 +138,7 @@ export class BorrowerComponent implements OnInit {
       jointBorrowerId: this.jointBorrowerForm.value.id
     };
     
-    this.borrowerService.addJointBorrower(jointBorrower).subscribe({
+    this.borrowerService.addJointBorrower(jointBorrower,this.mainborrowerid).subscribe({
       next: (response) => {
         console.log('Joint borrowers added successfully:', response);
         this.successMessage1 = 'Joint borrower added successfully';

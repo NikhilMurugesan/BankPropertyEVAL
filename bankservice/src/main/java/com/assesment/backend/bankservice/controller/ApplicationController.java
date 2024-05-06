@@ -53,7 +53,13 @@ public class ApplicationController {
         Application application = applicationService.getApplicationByReferenceNumber(referenceNumber);
         return ResponseEntity.ok(application);
     }
-   @GetMapping("/search")
+
+    @GetMapping("/all")
+    public ResponseEntity<Object> getAllApplicationByReferenceNumber() {
+        Object application = applicationService.getAllApplication();
+        return ResponseEntity.ok(application);
+    }
+ /*   @GetMapping("/search")
     public List<Application> searchApplications(@RequestParam(required = false) String reference,
                                                 @RequestParam(required = false) LocalDate fromDate,
                                                 @RequestParam(required = false) LocalDate toDate) {
@@ -69,7 +75,7 @@ public class ApplicationController {
             // You can implement other search criteria as needed
             return Collections.emptyList();
         }
-    }
+    }*/
     // Other endpoints
     
 }

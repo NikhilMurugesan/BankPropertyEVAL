@@ -36,8 +36,8 @@ public class BorrowerService {
         jointBorrowerRepository.deleteById(jointBorrowerId);
     }
 
-    public Optional<MainBorrower> findMainBorrowerById(Long mainBorrowerId) {
-        return mainBorrowerRepository.findById(mainBorrowerId);
+    public MainBorrower findMainBorrowerById(Long mainBorrowerId) {
+        return mainBorrowerRepository.findById(mainBorrowerId).orElse(null);
     }
 
     public Optional<JointBorrower> findJointBorrowerById(Long jointBorrowerId) {

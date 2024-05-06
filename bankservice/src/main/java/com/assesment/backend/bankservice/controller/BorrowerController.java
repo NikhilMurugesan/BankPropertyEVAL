@@ -36,9 +36,10 @@ public class BorrowerController {
     @PostMapping("/main/{facilityid}")
     public ResponseEntity<MainBorrower> addMainBorrower(@RequestBody MainBorrower mainBorrower,@PathVariable("facilityid") Long facilityID) {
         facilityDetail = facilityDetailService.getFacilityById(facilityID);
+        mainBorrower.setFacility(facilityDetail);
         MainBorrower savedMainBorrower = borrowerService.saveMainBorrower(mainBorrower);
         mainborrower = savedMainBorrower;
-        mainBorrower.setFacility(facilityDetail);
+        
         return new ResponseEntity<>(savedMainBorrower, HttpStatus.CREATED);
     }
 
@@ -50,9 +51,8 @@ public class BorrowerController {
 
     @GetMapping("/main/{id}")
     public ResponseEntity<MainBorrower> getMainBorrowerById(@PathVariable("id") Long mainBorrowerId) {
-        Optional<MainBorrower> mainBorrower = borrowerService.findMainBorrowerById(mainBorrowerId);
-        return mainBorrower.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        MainBorrower mainBorrower = borrowerService.findMainBorrowerById(mainBorrowerId);
+        return new ResponseEntity<>(mainBorrower, HttpStatus.OK);
     }
 
     @DeleteMapping("/main/{id}")
@@ -61,10 +61,12 @@ public class BorrowerController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("/joint")
-    public ResponseEntity<JointBorrower> addJointBorrower(@RequestBody JointBorrower jointBorrower) {
+    @PostMapping("/joint/{id}")
+    public ResponseEntity<JointBorrower> addJointBorrower(@RequestBody JointBorrower jointBorrower,@PathVariable("id") Long id) {
+        mainborrower = borrowerService.findMainBorrowerById(id);
+        jointBorrower.setMainBorrower(mainborrower);
         JointBorrower savedJointBorrower = borrowerService.saveJointBorrower(jointBorrower);
-        savedJointBorrower.setMainBorrower(mainborrower);
+        
         return new ResponseEntity<>(savedJointBorrower, HttpStatus.CREATED);
     }
 

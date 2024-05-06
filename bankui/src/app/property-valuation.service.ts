@@ -45,6 +45,12 @@ export class PropertyValuationService {
       );
   }
 
+  getallApplications(): Observable<any[]> {
+    return this.http.get<any[]>(`http://localhost:9090/api/applications`)
+     .pipe(
+        catchError(this.handleError)
+      );
+  }
   
 
   private handleError(error: any) {

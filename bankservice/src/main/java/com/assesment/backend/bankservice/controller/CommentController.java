@@ -17,7 +17,7 @@ import com.assesment.backend.bankservice.service.FacilityDetailService;
 @RestController
 @RequestMapping("/api/comments")
 public class CommentController {
-    // Comment controller methods
+    
     @Autowired
     private CommentService commentService;
 
