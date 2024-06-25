@@ -45,7 +45,7 @@ public class FacilityDetailController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/addfacility")
     public ResponseEntity<FacilityDetail> addFacility(@RequestBody FacilityDetail facilityDetail) {
         FacilityDetail newFacility = facilityDetailService.addFacility(facilityDetail);
         return new ResponseEntity<>(newFacility, HttpStatus.CREATED);
